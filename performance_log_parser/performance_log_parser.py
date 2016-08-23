@@ -16,6 +16,8 @@ for test_line in f:
         file_name = l[4]
     if l[0]=='@perf>>':
         p = [i for i in l if (i!='@perf>>' and i!='')]
+        if p[0]=='hw_cycle':
+            print p
         if p[0]=='pic_num':
             new_list = list()
         new_list = new_list + p
@@ -34,7 +36,17 @@ for per_entry in performance_list:
         if(k!='type'):
             per_entry[k] = float(ast.literal_eval(v))
         if(k!='type' and k!='pic_num' and k!='show_flag'  and k!='width'  and k!='height'  and k!='mbs'  and k!='ints'):
-            per_entry[k] = format(per_entry[k] / mb_num, '.02f')
+            per_entry[k] = float(format(per_entry[k] / mb_num, '.02f'))
+            
+
+'''
+get Min, Max, Average, Average5 value of (I, P, B, all)
+    1. bit-rate 
+    2. bandwidth
+    3. hw_cycle, hw_cycle+sw_cycle
+    4. time per frame
+'''
+
 
 
 '''
@@ -81,7 +93,14 @@ for per_entry in performance_list:
 '''
 Write Bandwidth
 '''
-    
+
+'''
+Write Bit-rate
+'''
+
+'''
+Write Performance
+'''
     
 workbook.close()
     
