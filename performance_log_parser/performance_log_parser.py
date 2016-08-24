@@ -2,9 +2,14 @@ import re
 import ast
 import csv
 import xlwt
+import os
 
 #f = open("log-netflix_hevcm10pl51-6000fps-16000Kbps-3840x2160-1014520_5033638636-mtr_on-114929.txt", 'r')
-f = open("log-Nepal_Adventures_of_Teamsupertramp-mtr_on-142209.txt", 'r')
+#f = open("log-Nepal_Adventures_of_Teamsupertramp-mtr_on-142209.txt", 'r')
+#f = open("log-street1_1_4096x2176_fr60_bd10-mtr_on-183028.txt", 'r')
+#f = open("log-street1_1_4096x2176_fr60_bd8-mtr_on-182757.txt", 'r')
+#f = open("log-uhd_vod_count_down_girl_girl_girl_2nd_02-mtr_on-173354.txt", 'r')
+f = open("log-transformers_4_2014_4k_official_trailer-mtr_on-175016.txt", 'r')
 
 performance_list = list()
 
@@ -29,7 +34,7 @@ for test_line in f:
 '''
 Convert Performance Data from hex to deci, and calculate per MB number
 '''
-x_value = 5
+x_value = 6
 average_x_list_all  = list()
 
 '''
@@ -231,7 +236,8 @@ import pylab as pl
 
 def func(x, k, l):
     '''
-    function (x) = k*x + l
+    function (x) = k*x + l            :    return k*x+l
+    function (x) = k*x^2 + m*x + l    :    return k*x*x + m*x +l
     '''
     return k*x+l
 
@@ -262,7 +268,9 @@ pl.xlabel('frame size (Mbits)')
 pl.ylabel('decoding time (ms)')
 pl.title('frame size - decoding time')
 pl.legend()
-pl.show()
+pl.savefig(file_name+".png")
+#pl.show()
+
 
       
 '''
@@ -316,7 +324,7 @@ for header in summay_list:
     col=summay_list.index(header)  # we are keeping order.
     worksheet.write(0, col, header) # we have written first row which is the header of worksheet also.
     
-row = 3
+row = 2
 worksheet.write_string(row, 1, 'all_min')
 for _key, _value in min_list_all.items():
     col = summay_list.index(_key)
@@ -333,7 +341,7 @@ worksheet.write_string(row, 1, 'all_avg')
 for _key, _value in avg_list_all.items():
     col = summay_list.index(_key)
     worksheet.write_number(row, col, float(_value))
-row +=2
+row +=1
 
 worksheet.write_string(row, 1, 'I_min')
 for _key, _value in min_list_I.items():
@@ -351,7 +359,7 @@ worksheet.write_string(row, 1, 'I_avg')
 for _key, _value in avg_list_I.items():
     col = summay_list.index(_key)
     worksheet.write_number(row, col, float(_value))
-row +=2
+row +=1
 
 worksheet.write_string(row, 1, 'P_min')
 for _key, _value in min_list_P.items():
@@ -369,7 +377,7 @@ worksheet.write_string(row, 1, 'P_avg')
 for _key, _value in avg_list_P.items():
     col = summay_list.index(_key)
     worksheet.write_number(row, col, float(_value))
-row +=2
+row +=1
 
 worksheet.write_string(row, 1, 'B_min')
 for _key, _value in min_list_B.items():
@@ -387,7 +395,7 @@ worksheet.write_string(row, 1, 'B_avg')
 for _key, _value in avg_list_B.items():
     col = summay_list.index(_key)
     worksheet.write_number(row, col, float(_value))
-row +=2
+row +=1
 
 worksheet.write_string(row, 1, str(x_value)+('_avg_min'))
 for _key, _value in min_list_avgx.items():
@@ -405,13 +413,23 @@ worksheet.write_string(row, 1, str(x_value)+('_avg_avg'))
 for _key, _value in avg_list_avgx.items():
     col = summay_list.index(_key)
     worksheet.write_number(row, col, float(_value))
-row +=2
+row +=1
+
+'''
+Write Fit Image
+'''
+worksheet = workbook.add_worksheet('Fit(frm_size-time)')
+
+worksheet.insert_image('B2', file_name+".png")
 
 workbook.close()
     
 
-
-
+'''
+Clean
+'''
+os.remove(file_name+".png")
+pl.close()
 
 
 
