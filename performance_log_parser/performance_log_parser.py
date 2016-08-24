@@ -3,8 +3,8 @@ import ast
 import csv
 import xlwt
 
-f = open("log-netflix_hevcm10pl51-6000fps-16000Kbps-3840x2160-1014520_5033638636-mtr_on-114929.txt", 'r')
-#f = open("log-Nepal_Adventures_of_Teamsupertramp-mtr_on-142209.txt", 'r')
+#f = open("log-netflix_hevcm10pl51-6000fps-16000Kbps-3840x2160-1014520_5033638636-mtr_on-114929.txt", 'r')
+f = open("log-Nepal_Adventures_of_Teamsupertramp-mtr_on-142209.txt", 'r')
 
 performance_list = list()
 
@@ -226,13 +226,13 @@ frm_size_list = list()  # frame size
     
 import numpy as np
 from scipy.optimize import leastsq
+from scipy.optimize import curve_fit
 import pylab as pl
 
-def func(x, p):
+def func(x, k, l):
     '''
     function (x) = k*x + l
     '''
-    k, l = p
     return k*x+l
 
 def residuals(p, y, x):
@@ -241,18 +241,29 @@ def residuals(p, y, x):
     '''
     return y - func(x, p)
 
+
 '''
-p0 = [1, 1]
-
-plsq = leastsq(residuals, p0, args=(frm_size_list, t_600_list))
-
-print plsq[0]
-
-
-pl.plot(t_600_list, func(t_600_list, plsq[0]), label=u'sim data')
+Get Fit Function
+'''
+x = np.array(frm_size_list)
+y = np.array(t_800_list)
+popt, pcov = curve_fit(func, x, y)
+print popt
+print pcov
+pl.plot(x, func(x, popt[0], popt[1]), 'r', label='Fit Func: y = %f*x + %f' % (popt[0], popt[1]))
+'''
+plot original 
+'''
+pl.plot(frm_size_list, t_800_list, '.', label='original values')
+'''
+plot
+'''
+pl.xlabel('frame size (Mbits)')
+pl.ylabel('decoding time (ms)')
+pl.title('frame size - decoding time')
 pl.legend()
 pl.show()
-'''
+
       
 '''
 Write data into csv file
