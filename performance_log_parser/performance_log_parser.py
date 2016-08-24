@@ -412,9 +412,25 @@ row +=1
 '''
 Write Fit Image
 '''
-worksheet = workbook.add_worksheet('Fit(frm_size-time)')
+worksheet = workbook.add_worksheet('Fit Function(frm_size-time)')
 
-worksheet.insert_image('B2', file_name+".png")
+worksheet.write_string(0, 1, 'a')
+worksheet.write_number(1, 1, popt[0])
+worksheet.write_string(0, 2, 'b')
+worksheet.write_number(1, 2, popt[1])
+worksheet.write_string(0, 3, 'c')
+worksheet.write_number(1, 3, popt[2])
+
+row = 3
+worksheet.write_string(row, 0, 'covariance')
+for i in pcov:
+    col = 1
+    for j in i:
+        worksheet.write_number(row, col, j)
+        col +=1
+    row += 1
+    
+worksheet.insert_image('F7', file_name+".png")
 
 workbook.close()
     
