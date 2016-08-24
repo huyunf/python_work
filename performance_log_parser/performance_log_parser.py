@@ -61,6 +61,21 @@ min_list_B          = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_b
 max_list_B          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
 avg_list_B          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
 
+'''
+data for plot
+'''
+t_600_list = list() # time
+t_700_list = list() # time
+t_800_list = list() # time
+
+rd_bd_list = list() # read bandwidth
+
+frm_size_list = list()  # frame size
+
+
+'''
+Process Data
+'''
 for per_entry in performance_list:
     mb_num = float(ast.literal_eval(per_entry['mbs']))
     for k,v in per_entry.iteritems():
@@ -81,21 +96,27 @@ for per_entry in performance_list:
     
     '''
     deal with all the data get what we need here
+        1. add new 
     '''
     per_entry['vpu_cycle']  = per_entry['hw_cycle'] + per_entry['sw_cycle']
-    per_entry['frm_size']   = float(format((per_entry['bits'] * mb_num) / (1024*1024), '.04f'))
-    per_entry['br_30']      = per_entry['frm_size'] * 30
-    per_entry['br_60']      = per_entry['frm_size'] * 60
-    per_entry['all_bd']     = per_entry['wr_bd'] + per_entry['rd_bd']
+    per_entry['frm_size']   = float(format((per_entry['bits'] * mb_num) / (1024*1024), '.04f'))     # Mbits
+    per_entry['br_30']      = float(format(per_entry['frm_size'] * 30, '.04f'))                     # Mbps
+    per_entry['br_60']      = float(format(per_entry['frm_size'] * 60, '.04f'))                     # Mbps
+    per_entry['all_bd']     = float(format(per_entry['wr_bd'] + per_entry['rd_bd'], '.04f'))
     
-    per_entry['hw_600']     = (per_entry['hw_cycle']*mb_num) / 600000.0
-    per_entry['hw_700']     = (per_entry['hw_cycle']*mb_num) / 700000.0
-    per_entry['hw_800']     = (per_entry['hw_cycle']*mb_num) / 800000.0
+    per_entry['hw_600']     = float(format((per_entry['hw_cycle']*mb_num) / 600000.0, '.04f'))      # ms
+    per_entry['hw_700']     = float(format((per_entry['hw_cycle']*mb_num) / 700000.0, '.04f'))      # ms
+    per_entry['hw_800']     = float(format((per_entry['hw_cycle']*mb_num) / 800000.0, '.04f'))      # ms
     
-    per_entry['t_600']      = (per_entry['vpu_cycle']*mb_num) / 600000.0
-    per_entry['t_700']      = (per_entry['vpu_cycle']*mb_num) / 700000.0
-    per_entry['t_800']      = (per_entry['vpu_cycle']*mb_num) / 800000.0
+    per_entry['t_600']      = float(format((per_entry['vpu_cycle']*mb_num) / 600000.0, '.04f'))     # ms
+    per_entry['t_700']      = float(format((per_entry['vpu_cycle']*mb_num) / 700000.0, '.04f'))     # ms
+    per_entry['t_800']      = float(format((per_entry['vpu_cycle']*mb_num) / 800000.0, '.04f'))     # ms
     
+    t_600_list.append(per_entry['t_600'])
+    t_700_list.append(per_entry['t_700'])
+    t_800_list.append(per_entry['t_800'])
+    rd_bd_list.append(per_entry['rd_bd'])
+    frm_size_list.append(per_entry['frm_size'])
     
     '''
     deal with average x
@@ -505,15 +526,47 @@ if avg_list_avgx['count'] > 0:
 #    print i
        
 '''
-get Min, Max, Average, Average5 value of (I, P, B, all)
-    1. bit-rate 
-    2. bandwidth
-    3. hw_cycle, hw_cycle+sw_cycle
-    4. time per frame
-'''
+t_600_list = list() # time
+t_700_list = list() # time
+t_800_list = list() # time
+rd_bd_list = list() # read bandwidth
+frm_size_list = list()  # frame size       
+'''  
+    
+print len(t_600_list)
+print len(frm_size_list)
 
+import numpy as np
+from scipy.optimize import leastsq
+import pylab as pl
 
+def func(x, p):
+    '''
+    function (x) = k*x + l
+    '''
+    k, l = p
+    return k*x+l
 
+def residuals(p, y, x):
+    '''
+    residual function
+    '''
+    return y - func(x, p)
+
+p0 = [1, 1]
+
+print t_600_list
+print '=================\n'
+print frm_size_list
+
+plsq = leastsq(residuals, p0, args=(frm_size_list, t_600_list))
+
+print plsq[0]
+
+pl.plot(t_600_list, func(t_600_list, plsq[0]), label=u'sim data')
+pl.legend()
+pl.show()
+      
 '''
 Write data into csv file
 
@@ -655,6 +708,7 @@ for _key, _value in avg_list_avgx.items():
     col = summay_list.index(_key)
     worksheet.write_number(row, col, float(_value))
 row +=2
+
 workbook.close()
     
 
