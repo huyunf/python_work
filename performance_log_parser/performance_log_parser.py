@@ -237,7 +237,6 @@ import pylab as pl
 def func(x, k, l):
     '''
     function (x) = k*x + l            :    return k*x+l
-    function (x) = k*x^2 + m*x + l    :    return k*x*x + m*x +l
     '''
     return k*x+l
 
@@ -247,16 +246,27 @@ def residuals(p, y, x):
     '''
     return y - func(x, p)
 
+def func2(x, a, b, c):
+    '''
+    function (x) = a*x^2 + b*x + c    :    return k*x*x + m*x +l
+    '''
+    return a*x*x + b*x +c
+
+def residuals2(p, y, x):
+    
+    return y - func2(x, p) 
 
 '''
 Get Fit Function
 '''
 x = np.array(frm_size_list)
 y = np.array(t_800_list)
-popt, pcov = curve_fit(func, x, y)
+#popt, pcov = curve_fit(func, x, y)
+popt, pcov = curve_fit(func2, x, y)
 print popt
 print pcov
-pl.plot(x, func(x, popt[0], popt[1]), 'r', label='Fit Func: y = %f*x + %f' % (popt[0], popt[1]))
+#pl.plot(x, func(x, popt[0], popt[1]), 'r', label='Fit Func: y = %f*x + %f' % (popt[0], popt[1]))
+pl.plot(x, func2(x, popt[0], popt[1], popt[2]), '.', label='Fit Func: y = %f*x^2 + %f*x + %f' % (popt[0], popt[1], popt[2]))
 '''
 plot original 
 '''
@@ -271,20 +281,7 @@ pl.legend()
 pl.savefig(file_name+".png")
 #pl.show()
 
-
-      
-'''
-Write data into csv file
-
-with open('performance.csv', 'w') as csvfile:
-    fieldnames = ['pic_num', 'show_flag', 'type', 'width', 'height', 'mbs', 'ints', 'bits', ' ', 'frm_size', 'br_30', 'br_60', ' ', 'rd_bd', 'wr_bd', 'all_bd', ' ', 'hw_cycle', 'module<so_pic_cfg>', 'module<end_of_pic>', 'sw_cycle', 'vpu_cycle', 'int_lat', 'total', ' ', 'rbuf_hold', 'rbuf_free', 'dbuf_hold', 'dbuf_free',' ', 'spu', 'qtu', 'mvu', 'vcu', 'ppu', 'fcu', 'pfu', 'slcs', 'vcu2', 'vcu1', 'scu', 'spu2', 'spu3', 'pfu1', 'spu1', 'ppu1', 'qtu1', 'fcu1']
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=',', lineterminator='\n')
-    
-    writer.writeheader()
-    for i in performance_list:
-        writer.writerow(i)
-'''
-            
+ 
 '''
 xls write
 '''
