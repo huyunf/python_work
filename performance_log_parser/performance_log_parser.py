@@ -122,7 +122,6 @@ for per_entry in performance_list:
     deal with average x
     '''
     if len(average_x_list_all) == x_value:
-        
         ''' initial current'''
         for k,v in cur_list_avgx.iteritems():
             cur_list_avgx[k] = 0
@@ -138,389 +137,81 @@ for per_entry in performance_list:
                 cur_list_avgx[k] /= x_value
         
         min_list_avgx['count'] += 1
-        if(cur_list_avgx['frm_size'] < min_list_avgx['frm_size']):   min_list_avgx['frm_size'] = cur_list_avgx['frm_size']
-        if(cur_list_avgx['br_30'] < min_list_avgx['br_30']):         min_list_avgx['br_30'] = cur_list_avgx['br_30']
-        if(cur_list_avgx['br_60'] < min_list_avgx['br_60']):         min_list_avgx['br_60'] = cur_list_avgx['br_60']       
-        if(cur_list_avgx['rd_bd'] < min_list_avgx['rd_bd']):         min_list_avgx['rd_bd'] = cur_list_avgx['rd_bd']     
-        if(cur_list_avgx['wr_bd'] < min_list_avgx['wr_bd']):         min_list_avgx['wr_bd'] = cur_list_avgx['wr_bd']
-        if(cur_list_avgx['all_bd'] < min_list_avgx['all_bd']):       min_list_avgx['all_bd'] = cur_list_avgx['all_bd']
-            
-        if(cur_list_avgx['hw_cycle'] < min_list_avgx['hw_cycle']):   min_list_avgx['hw_cycle'] = cur_list_avgx['hw_cycle']
-        if(cur_list_avgx['sw_cycle'] < min_list_avgx['sw_cycle']):   min_list_avgx['sw_cycle'] = cur_list_avgx['sw_cycle']
-        if(cur_list_avgx['vpu_cycle'] < min_list_avgx['vpu_cycle']): min_list_avgx['vpu_cycle'] = cur_list_avgx['vpu_cycle']   
-        
-        if(cur_list_avgx['t_600'] < min_list_avgx['t_600']):         min_list_avgx['t_600'] = cur_list_avgx['t_600']     
-        if(cur_list_avgx['t_700'] < min_list_avgx['t_700']):         min_list_avgx['t_700'] = cur_list_avgx['t_700']
-        if(cur_list_avgx['t_800'] < min_list_avgx['t_800']):         min_list_avgx['t_800'] = cur_list_avgx['t_800']     
-    
-        if(cur_list_avgx['hw_600'] < min_list_avgx['hw_600']):       min_list_avgx['hw_600'] = cur_list_avgx['hw_600']     
-        if(cur_list_avgx['hw_700'] < min_list_avgx['hw_700']):       min_list_avgx['hw_700'] = cur_list_avgx['hw_700']
-        if(cur_list_avgx['hw_800'] < min_list_avgx['hw_800']):       min_list_avgx['hw_800'] = cur_list_avgx['hw_800']   
-        
         max_list_avgx['count'] += 1
-        if(cur_list_avgx['frm_size'] > max_list_avgx['frm_size']):   max_list_avgx['frm_size'] = cur_list_avgx['frm_size']
-        if(cur_list_avgx['br_30'] > max_list_avgx['br_30']):         max_list_avgx['br_30'] = cur_list_avgx['br_30']
-        if(cur_list_avgx['br_60'] > max_list_avgx['br_60']):         max_list_avgx['br_60'] = cur_list_avgx['br_60']       
-        if(cur_list_avgx['rd_bd'] > max_list_avgx['rd_bd']):         max_list_avgx['rd_bd'] = cur_list_avgx['rd_bd']     
-        if(cur_list_avgx['wr_bd'] > max_list_avgx['wr_bd']):         max_list_avgx['wr_bd'] = cur_list_avgx['wr_bd']
-        if(cur_list_avgx['all_bd'] > max_list_avgx['all_bd']):       max_list_avgx['all_bd'] = cur_list_avgx['all_bd']
-            
-        if(cur_list_avgx['hw_cycle'] > max_list_avgx['hw_cycle']):   max_list_avgx['hw_cycle'] = cur_list_avgx['hw_cycle']
-        if(cur_list_avgx['sw_cycle'] > max_list_avgx['sw_cycle']):   max_list_avgx['sw_cycle'] = cur_list_avgx['sw_cycle']
-        if(cur_list_avgx['vpu_cycle'] > max_list_avgx['vpu_cycle']): max_list_avgx['vpu_cycle'] = cur_list_avgx['vpu_cycle']   
-        
-        if(cur_list_avgx['t_600'] > max_list_avgx['t_600']):         max_list_avgx['t_600'] = cur_list_avgx['t_600']     
-        if(cur_list_avgx['t_700'] > max_list_avgx['t_700']):         max_list_avgx['t_700'] = cur_list_avgx['t_700']
-        if(cur_list_avgx['t_800'] > max_list_avgx['t_800']):         max_list_avgx['t_800'] = cur_list_avgx['t_800']     
-    
-        if(cur_list_avgx['hw_600'] > max_list_avgx['hw_600']):       max_list_avgx['hw_600'] = cur_list_avgx['hw_600']     
-        if(cur_list_avgx['hw_700'] > max_list_avgx['hw_700']):       max_list_avgx['hw_700'] = cur_list_avgx['hw_700']
-        if(cur_list_avgx['hw_800'] > max_list_avgx['hw_800']):       max_list_avgx['hw_800'] = cur_list_avgx['hw_800'] 
-        
-        
         avg_list_avgx['count'] += 1
-        avg_list_avgx['frm_size'] += cur_list_avgx['frm_size']
-        avg_list_avgx['br_30'] += cur_list_avgx['br_30']
-        avg_list_avgx['br_60'] += cur_list_avgx['br_60']       
-        avg_list_avgx['rd_bd'] += cur_list_avgx['rd_bd']     
-        avg_list_avgx['wr_bd'] += cur_list_avgx['wr_bd']
-        avg_list_avgx['all_bd'] += cur_list_avgx['all_bd']
-        avg_list_avgx['hw_cycle'] += cur_list_avgx['hw_cycle']
-        avg_list_avgx['sw_cycle'] += cur_list_avgx['sw_cycle']
-        avg_list_avgx['vpu_cycle'] += cur_list_avgx['vpu_cycle']   
-        avg_list_avgx['t_600'] += cur_list_avgx['t_600']     
-        avg_list_avgx['t_700'] += cur_list_avgx['t_700']
-        avg_list_avgx['t_800'] += cur_list_avgx['t_800']     
-        avg_list_avgx['hw_600'] += cur_list_avgx['hw_600']     
-        avg_list_avgx['hw_700'] += cur_list_avgx['hw_700']
-        avg_list_avgx['hw_800'] += cur_list_avgx['hw_800']
-        
+        for k,v in cur_list_avgx.iteritems():
+            if k != 'count':
+                if(v < min_list_avgx[k]):   min_list_avgx[k] = v
+                if(v > max_list_avgx[k]):   max_list_avgx[k] = v
+                avg_list_avgx[k] += v
                     
     '''
     min, max, average
     '''
     min_list_all['count'] += 1
-    if(per_entry['frm_size'] < min_list_all['frm_size']):   min_list_all['frm_size'] = per_entry['frm_size']
-    if(per_entry['br_30'] < min_list_all['br_30']):         min_list_all['br_30'] = per_entry['br_30']
-    if(per_entry['br_60'] < min_list_all['br_60']):         min_list_all['br_60'] = per_entry['br_60']       
-    if(per_entry['rd_bd'] < min_list_all['rd_bd']):         min_list_all['rd_bd'] = per_entry['rd_bd']     
-    if(per_entry['wr_bd'] < min_list_all['wr_bd']):         min_list_all['wr_bd'] = per_entry['wr_bd']
-    if(per_entry['all_bd'] < min_list_all['all_bd']):       min_list_all['all_bd'] = per_entry['all_bd']
-        
-    if(per_entry['hw_cycle'] < min_list_all['hw_cycle']):   min_list_all['hw_cycle'] = per_entry['hw_cycle']
-    if(per_entry['sw_cycle'] < min_list_all['sw_cycle']):   min_list_all['sw_cycle'] = per_entry['sw_cycle']
-    if(per_entry['vpu_cycle'] < min_list_all['vpu_cycle']): min_list_all['vpu_cycle'] = per_entry['vpu_cycle']   
-    
-    if(per_entry['t_600'] < min_list_all['t_600']):         min_list_all['t_600'] = per_entry['t_600']     
-    if(per_entry['t_700'] < min_list_all['t_700']):         min_list_all['t_700'] = per_entry['t_700']
-    if(per_entry['t_800'] < min_list_all['t_800']):         min_list_all['t_800'] = per_entry['t_800']     
-
-    if(per_entry['hw_600'] < min_list_all['hw_600']):       min_list_all['hw_600'] = per_entry['hw_600']     
-    if(per_entry['hw_700'] < min_list_all['hw_700']):       min_list_all['hw_700'] = per_entry['hw_700']
-    if(per_entry['hw_800'] < min_list_all['hw_800']):       min_list_all['hw_800'] = per_entry['hw_800']   
-    
     max_list_all['count'] += 1
-    if(per_entry['frm_size'] > max_list_all['frm_size']):   max_list_all['frm_size'] = per_entry['frm_size']
-    if(per_entry['br_30'] > max_list_all['br_30']):         max_list_all['br_30'] = per_entry['br_30']
-    if(per_entry['br_60'] > max_list_all['br_60']):         max_list_all['br_60'] = per_entry['br_60']       
-    if(per_entry['rd_bd'] > max_list_all['rd_bd']):         max_list_all['rd_bd'] = per_entry['rd_bd']     
-    if(per_entry['wr_bd'] > max_list_all['wr_bd']):         max_list_all['wr_bd'] = per_entry['wr_bd']
-    if(per_entry['all_bd'] > max_list_all['all_bd']):       max_list_all['all_bd'] = per_entry['all_bd']
-        
-    if(per_entry['hw_cycle'] > max_list_all['hw_cycle']):   max_list_all['hw_cycle'] = per_entry['hw_cycle']
-    if(per_entry['sw_cycle'] > max_list_all['sw_cycle']):   max_list_all['sw_cycle'] = per_entry['sw_cycle']
-    if(per_entry['vpu_cycle'] > max_list_all['vpu_cycle']): max_list_all['vpu_cycle'] = per_entry['vpu_cycle']   
-    
-    if(per_entry['t_600'] > max_list_all['t_600']):         max_list_all['t_600'] = per_entry['t_600']     
-    if(per_entry['t_700'] > max_list_all['t_700']):         max_list_all['t_700'] = per_entry['t_700']
-    if(per_entry['t_800'] > max_list_all['t_800']):         max_list_all['t_800'] = per_entry['t_800']     
-
-    if(per_entry['hw_600'] > max_list_all['hw_600']):       max_list_all['hw_600'] = per_entry['hw_600']     
-    if(per_entry['hw_700'] > max_list_all['hw_700']):       max_list_all['hw_700'] = per_entry['hw_700']
-    if(per_entry['hw_800'] > max_list_all['hw_800']):       max_list_all['hw_800'] = per_entry['hw_800'] 
-    
-    
     avg_list_all['count'] += 1
-    avg_list_all['frm_size'] += per_entry['frm_size']
-    avg_list_all['br_30'] += per_entry['br_30']
-    avg_list_all['br_60'] += per_entry['br_60']       
-    avg_list_all['rd_bd'] += per_entry['rd_bd']     
-    avg_list_all['wr_bd'] += per_entry['wr_bd']
-    avg_list_all['all_bd'] += per_entry['all_bd']
-    avg_list_all['hw_cycle'] += per_entry['hw_cycle']
-    avg_list_all['sw_cycle'] += per_entry['sw_cycle']
-    avg_list_all['vpu_cycle'] += per_entry['vpu_cycle']   
-    avg_list_all['t_600'] += per_entry['t_600']     
-    avg_list_all['t_700'] += per_entry['t_700']
-    avg_list_all['t_800'] += per_entry['t_800']     
-    avg_list_all['hw_600'] += per_entry['hw_600']     
-    avg_list_all['hw_700'] += per_entry['hw_700']
-    avg_list_all['hw_800'] += per_entry['hw_800']
-    
     if per_entry['type'] == 'I':
         min_list_I['count'] += 1
-        if(per_entry['frm_size'] < min_list_I['frm_size']):   min_list_I['frm_size'] = per_entry['frm_size']
-        if(per_entry['br_30'] < min_list_I['br_30']):         min_list_I['br_30'] = per_entry['br_30']
-        if(per_entry['br_60'] < min_list_I['br_60']):         min_list_I['br_60'] = per_entry['br_60']       
-        if(per_entry['rd_bd'] < min_list_I['rd_bd']):         min_list_I['rd_bd'] = per_entry['rd_bd']     
-        if(per_entry['wr_bd'] < min_list_I['wr_bd']):         min_list_I['wr_bd'] = per_entry['wr_bd']
-        if(per_entry['all_bd'] < min_list_I['all_bd']):       min_list_I['all_bd'] = per_entry['all_bd']
-            
-        if(per_entry['hw_cycle'] < min_list_I['hw_cycle']):   min_list_I['hw_cycle'] = per_entry['hw_cycle']
-        if(per_entry['sw_cycle'] < min_list_I['sw_cycle']):   min_list_I['sw_cycle'] = per_entry['sw_cycle']
-        if(per_entry['vpu_cycle'] < min_list_I['vpu_cycle']): min_list_I['vpu_cycle'] = per_entry['vpu_cycle']   
-        
-        if(per_entry['t_600'] < min_list_I['t_600']):         min_list_I['t_600'] = per_entry['t_600']     
-        if(per_entry['t_700'] < min_list_I['t_700']):         min_list_I['t_700'] = per_entry['t_700']
-        if(per_entry['t_800'] < min_list_I['t_800']):         min_list_I['t_800'] = per_entry['t_800']     
-    
-        if(per_entry['hw_600'] < min_list_I['hw_600']):       min_list_I['hw_600'] = per_entry['hw_600']     
-        if(per_entry['hw_700'] < min_list_I['hw_700']):       min_list_I['hw_700'] = per_entry['hw_700']
-        if(per_entry['hw_800'] < min_list_I['hw_800']):       min_list_I['hw_800'] = per_entry['hw_800']   
-        
         max_list_I['count'] += 1
-        if(per_entry['frm_size'] > max_list_I['frm_size']):   max_list_I['frm_size'] = per_entry['frm_size']
-        if(per_entry['br_30'] > max_list_I['br_30']):         max_list_I['br_30'] = per_entry['br_30']
-        if(per_entry['br_60'] > max_list_I['br_60']):         max_list_I['br_60'] = per_entry['br_60']       
-        if(per_entry['rd_bd'] > max_list_I['rd_bd']):         max_list_I['rd_bd'] = per_entry['rd_bd']     
-        if(per_entry['wr_bd'] > max_list_I['wr_bd']):         max_list_I['wr_bd'] = per_entry['wr_bd']
-        if(per_entry['all_bd'] > max_list_I['all_bd']):       max_list_I['all_bd'] = per_entry['all_bd']
-            
-        if(per_entry['hw_cycle'] > max_list_I['hw_cycle']):   max_list_I['hw_cycle'] = per_entry['hw_cycle']
-        if(per_entry['sw_cycle'] > max_list_I['sw_cycle']):   max_list_I['sw_cycle'] = per_entry['sw_cycle']
-        if(per_entry['vpu_cycle'] > max_list_I['vpu_cycle']): max_list_I['vpu_cycle'] = per_entry['vpu_cycle']   
-        
-        if(per_entry['t_600'] > max_list_I['t_600']):         max_list_I['t_600'] = per_entry['t_600']     
-        if(per_entry['t_700'] > max_list_I['t_700']):         max_list_I['t_700'] = per_entry['t_700']
-        if(per_entry['t_800'] > max_list_I['t_800']):         max_list_I['t_800'] = per_entry['t_800']     
-    
-        if(per_entry['hw_600'] > max_list_I['hw_600']):       max_list_I['hw_600'] = per_entry['hw_600']     
-        if(per_entry['hw_700'] > max_list_I['hw_700']):       max_list_I['hw_700'] = per_entry['hw_700']
-        if(per_entry['hw_800'] > max_list_I['hw_800']):       max_list_I['hw_800'] = per_entry['hw_800'] 
-        
-        
         avg_list_I['count'] += 1
-        avg_list_I['frm_size'] += per_entry['frm_size']
-        avg_list_I['br_30'] += per_entry['br_30']
-        avg_list_I['br_60'] += per_entry['br_60']       
-        avg_list_I['rd_bd'] += per_entry['rd_bd']     
-        avg_list_I['wr_bd'] += per_entry['wr_bd']
-        avg_list_I['all_bd'] += per_entry['all_bd']
-        avg_list_I['hw_cycle'] += per_entry['hw_cycle']
-        avg_list_I['sw_cycle'] += per_entry['sw_cycle']
-        avg_list_I['vpu_cycle'] += per_entry['vpu_cycle']   
-        avg_list_I['t_600'] += per_entry['t_600']     
-        avg_list_I['t_700'] += per_entry['t_700']
-        avg_list_I['t_800'] += per_entry['t_800']     
-        avg_list_I['hw_600'] += per_entry['hw_600']     
-        avg_list_I['hw_700'] += per_entry['hw_700']
-        avg_list_I['hw_800'] += per_entry['hw_800'] 
-    
     if per_entry['type'] == 'P' and per_entry['show_flag']==1:
         min_list_P['count'] += 1
-        if(per_entry['frm_size'] < min_list_P['frm_size']):   min_list_P['frm_size'] = per_entry['frm_size']
-        if(per_entry['br_30'] < min_list_P['br_30']):         min_list_P['br_30'] = per_entry['br_30']
-        if(per_entry['br_60'] < min_list_P['br_60']):         min_list_P['br_60'] = per_entry['br_60']       
-        if(per_entry['rd_bd'] < min_list_P['rd_bd']):         min_list_P['rd_bd'] = per_entry['rd_bd']     
-        if(per_entry['wr_bd'] < min_list_P['wr_bd']):         min_list_P['wr_bd'] = per_entry['wr_bd']
-        if(per_entry['all_bd'] < min_list_P['all_bd']):       min_list_P['all_bd'] = per_entry['all_bd']
-            
-        if(per_entry['hw_cycle'] < min_list_P['hw_cycle']):   min_list_P['hw_cycle'] = per_entry['hw_cycle']
-        if(per_entry['sw_cycle'] < min_list_P['sw_cycle']):   min_list_P['sw_cycle'] = per_entry['sw_cycle']
-        if(per_entry['vpu_cycle'] < min_list_P['vpu_cycle']): min_list_P['vpu_cycle'] = per_entry['vpu_cycle']   
-        
-        if(per_entry['t_600'] < min_list_P['t_600']):         min_list_P['t_600'] = per_entry['t_600']     
-        if(per_entry['t_700'] < min_list_P['t_700']):         min_list_P['t_700'] = per_entry['t_700']
-        if(per_entry['t_800'] < min_list_P['t_800']):         min_list_P['t_800'] = per_entry['t_800']     
-    
-        if(per_entry['hw_600'] < min_list_P['hw_600']):       min_list_P['hw_600'] = per_entry['hw_600']     
-        if(per_entry['hw_700'] < min_list_P['hw_700']):       min_list_P['hw_700'] = per_entry['hw_700']
-        if(per_entry['hw_800'] < min_list_P['hw_800']):       min_list_P['hw_800'] = per_entry['hw_800']   
-        
         max_list_P['count'] += 1
-        if(per_entry['frm_size'] > max_list_P['frm_size']):   max_list_P['frm_size'] = per_entry['frm_size']
-        if(per_entry['br_30'] > max_list_P['br_30']):         max_list_P['br_30'] = per_entry['br_30']
-        if(per_entry['br_60'] > max_list_P['br_60']):         max_list_P['br_60'] = per_entry['br_60']       
-        if(per_entry['rd_bd'] > max_list_P['rd_bd']):         max_list_P['rd_bd'] = per_entry['rd_bd']     
-        if(per_entry['wr_bd'] > max_list_P['wr_bd']):         max_list_P['wr_bd'] = per_entry['wr_bd']
-        if(per_entry['all_bd'] > max_list_P['all_bd']):       max_list_P['all_bd'] = per_entry['all_bd']
-            
-        if(per_entry['hw_cycle'] > max_list_P['hw_cycle']):   max_list_P['hw_cycle'] = per_entry['hw_cycle']
-        if(per_entry['sw_cycle'] > max_list_P['sw_cycle']):   max_list_P['sw_cycle'] = per_entry['sw_cycle']
-        if(per_entry['vpu_cycle'] > max_list_P['vpu_cycle']): max_list_P['vpu_cycle'] = per_entry['vpu_cycle']   
-        
-        if(per_entry['t_600'] > max_list_P['t_600']):         max_list_P['t_600'] = per_entry['t_600']     
-        if(per_entry['t_700'] > max_list_P['t_700']):         max_list_P['t_700'] = per_entry['t_700']
-        if(per_entry['t_800'] > max_list_P['t_800']):         max_list_P['t_800'] = per_entry['t_800']     
-    
-        if(per_entry['hw_600'] > max_list_P['hw_600']):       max_list_P['hw_600'] = per_entry['hw_600']     
-        if(per_entry['hw_700'] > max_list_P['hw_700']):       max_list_P['hw_700'] = per_entry['hw_700']
-        if(per_entry['hw_800'] > max_list_P['hw_800']):       max_list_P['hw_800'] = per_entry['hw_800'] 
-        
-        
         avg_list_P['count'] += 1
-        avg_list_P['frm_size'] += per_entry['frm_size']
-        avg_list_P['br_30'] += per_entry['br_30']
-        avg_list_P['br_60'] += per_entry['br_60']       
-        avg_list_P['rd_bd'] += per_entry['rd_bd']     
-        avg_list_P['wr_bd'] += per_entry['wr_bd']
-        avg_list_P['all_bd'] += per_entry['all_bd']
-        avg_list_P['hw_cycle'] += per_entry['hw_cycle']
-        avg_list_P['sw_cycle'] += per_entry['sw_cycle']
-        avg_list_P['vpu_cycle'] += per_entry['vpu_cycle']   
-        avg_list_P['t_600'] += per_entry['t_600']     
-        avg_list_P['t_700'] += per_entry['t_700']
-        avg_list_P['t_800'] += per_entry['t_800']     
-        avg_list_P['hw_600'] += per_entry['hw_600']     
-        avg_list_P['hw_700'] += per_entry['hw_700']
-        avg_list_P['hw_800'] += per_entry['hw_800'] 
-        
     if per_entry['type'] == 'B' or (per_entry['type'] == 'P' and per_entry['show_flag']==0):
         min_list_B['count'] += 1
-        if(per_entry['frm_size'] < min_list_B['frm_size']):   min_list_B['frm_size'] = per_entry['frm_size']
-        if(per_entry['br_30'] < min_list_B['br_30']):         min_list_B['br_30'] = per_entry['br_30']
-        if(per_entry['br_60'] < min_list_B['br_60']):         min_list_B['br_60'] = per_entry['br_60']       
-        if(per_entry['rd_bd'] < min_list_B['rd_bd']):         min_list_B['rd_bd'] = per_entry['rd_bd']     
-        if(per_entry['wr_bd'] < min_list_B['wr_bd']):         min_list_B['wr_bd'] = per_entry['wr_bd']
-        if(per_entry['all_bd'] < min_list_B['all_bd']):       min_list_B['all_bd'] = per_entry['all_bd']
-            
-        if(per_entry['hw_cycle'] < min_list_B['hw_cycle']):   min_list_B['hw_cycle'] = per_entry['hw_cycle']
-        if(per_entry['sw_cycle'] < min_list_B['sw_cycle']):   min_list_B['sw_cycle'] = per_entry['sw_cycle']
-        if(per_entry['vpu_cycle'] < min_list_B['vpu_cycle']): min_list_B['vpu_cycle'] = per_entry['vpu_cycle']   
-        
-        if(per_entry['t_600'] < min_list_B['t_600']):         min_list_B['t_600'] = per_entry['t_600']     
-        if(per_entry['t_700'] < min_list_B['t_700']):         min_list_B['t_700'] = per_entry['t_700']
-        if(per_entry['t_800'] < min_list_B['t_800']):         min_list_B['t_800'] = per_entry['t_800']     
-    
-        if(per_entry['hw_600'] < min_list_B['hw_600']):       min_list_B['hw_600'] = per_entry['hw_600']     
-        if(per_entry['hw_700'] < min_list_B['hw_700']):       min_list_B['hw_700'] = per_entry['hw_700']
-        if(per_entry['hw_800'] < min_list_B['hw_800']):       min_list_B['hw_800'] = per_entry['hw_800']   
-        
         max_list_B['count'] += 1
-        if(per_entry['frm_size'] > max_list_B['frm_size']):   max_list_B['frm_size'] = per_entry['frm_size']
-        if(per_entry['br_30'] > max_list_B['br_30']):         max_list_B['br_30'] = per_entry['br_30']
-        if(per_entry['br_60'] > max_list_B['br_60']):         max_list_B['br_60'] = per_entry['br_60']       
-        if(per_entry['rd_bd'] > max_list_B['rd_bd']):         max_list_B['rd_bd'] = per_entry['rd_bd']     
-        if(per_entry['wr_bd'] > max_list_B['wr_bd']):         max_list_B['wr_bd'] = per_entry['wr_bd']
-        if(per_entry['all_bd'] > max_list_B['all_bd']):       max_list_B['all_bd'] = per_entry['all_bd']
-            
-        if(per_entry['hw_cycle'] > max_list_B['hw_cycle']):   max_list_B['hw_cycle'] = per_entry['hw_cycle']
-        if(per_entry['sw_cycle'] > max_list_B['sw_cycle']):   max_list_B['sw_cycle'] = per_entry['sw_cycle']
-        if(per_entry['vpu_cycle'] > max_list_B['vpu_cycle']): max_list_B['vpu_cycle'] = per_entry['vpu_cycle']   
+        avg_list_B['count'] += 1  
+         
+    for k,v in per_entry.iteritems():
+        if k != 'count' and avg_list_all.has_key(k):
+            if(v < min_list_all[k]):   min_list_all[k] = v
+            if(v > max_list_all[k]):   max_list_all[k] = v
+            avg_list_all[k] += v                
+
+            if per_entry['type'] == 'I':
+                if(v < min_list_I[k]):   min_list_I[k] = v
+                if(v > max_list_I[k]):   max_list_I[k] = v
+                avg_list_I[k] += v              
         
-        if(per_entry['t_600'] > max_list_B['t_600']):         max_list_B['t_600'] = per_entry['t_600']     
-        if(per_entry['t_700'] > max_list_B['t_700']):         max_list_B['t_700'] = per_entry['t_700']
-        if(per_entry['t_800'] > max_list_B['t_800']):         max_list_B['t_800'] = per_entry['t_800']     
-    
-        if(per_entry['hw_600'] > max_list_B['hw_600']):       max_list_B['hw_600'] = per_entry['hw_600']     
-        if(per_entry['hw_700'] > max_list_B['hw_700']):       max_list_B['hw_700'] = per_entry['hw_700']
-        if(per_entry['hw_800'] > max_list_B['hw_800']):       max_list_B['hw_800'] = per_entry['hw_800'] 
+            if per_entry['type'] == 'P' and per_entry['show_flag']==1:
+                if(v < min_list_P[k]):   min_list_P[k] = v
+                if(v > max_list_P[k]):   max_list_P[k] = v
+                avg_list_P[k] += v  
         
+            if per_entry['type'] == 'B' or (per_entry['type'] == 'P' and per_entry['show_flag']==0):
+                if(v < min_list_B[k]):   min_list_B[k] = v
+                if(v > max_list_B[k]):   max_list_B[k] = v
+                avg_list_B[k] += v  
         
-        avg_list_B['count'] += 1
-        avg_list_B['frm_size'] += per_entry['frm_size']
-        avg_list_B['br_30'] += per_entry['br_30']
-        avg_list_B['br_60'] += per_entry['br_60']       
-        avg_list_B['rd_bd'] += per_entry['rd_bd']     
-        avg_list_B['wr_bd'] += per_entry['wr_bd']
-        avg_list_B['all_bd'] += per_entry['all_bd']
-        avg_list_B['hw_cycle'] += per_entry['hw_cycle']
-        avg_list_B['sw_cycle'] += per_entry['sw_cycle']
-        avg_list_B['vpu_cycle'] += per_entry['vpu_cycle']   
-        avg_list_B['t_600'] += per_entry['t_600']     
-        avg_list_B['t_700'] += per_entry['t_700']
-        avg_list_B['t_800'] += per_entry['t_800']     
-        avg_list_B['hw_600'] += per_entry['hw_600']     
-        avg_list_B['hw_700'] += per_entry['hw_700']
-        avg_list_B['hw_800'] += per_entry['hw_800']         
-        
-    '''
-    average 5
-    '''
+'''
+calculate average value
+'''
 if avg_list_all['count'] > 0:
-    avg_list_all['frm_size']    /= avg_list_all['count']
-    avg_list_all['br_30']       /= avg_list_all['count']
-    avg_list_all['br_60']       /= avg_list_all['count']
-    avg_list_all['rd_bd']       /= avg_list_all['count']
-    avg_list_all['wr_bd']       /= avg_list_all['count']
-    avg_list_all['all_bd']      /= avg_list_all['count']
-    avg_list_all['hw_cycle']    /= avg_list_all['count']
-    avg_list_all['sw_cycle']    /= avg_list_all['count']
-    avg_list_all['vpu_cycle']   /= avg_list_all['count']
-    avg_list_all['t_600']       /= avg_list_all['count']
-    avg_list_all['t_700']       /= avg_list_all['count']
-    avg_list_all['t_800']       /= avg_list_all['count']
-    avg_list_all['hw_600']      /= avg_list_all['count'] 
-    avg_list_all['hw_700']      /= avg_list_all['count']
-    avg_list_all['hw_800']      /= avg_list_all['count']
+    for k,v in avg_list_all.iteritems():
+        if k!='count':
+            avg_list_all[k] /= avg_list_all['count']
 
 if avg_list_I['count'] > 0:
-    avg_list_I['frm_size']    /= avg_list_I['count']
-    avg_list_I['br_30']       /= avg_list_I['count']
-    avg_list_I['br_60']       /= avg_list_I['count']
-    avg_list_I['rd_bd']       /= avg_list_I['count']
-    avg_list_I['wr_bd']       /= avg_list_I['count']
-    avg_list_I['all_bd']      /= avg_list_I['count']
-    avg_list_I['hw_cycle']    /= avg_list_I['count']
-    avg_list_I['sw_cycle']    /= avg_list_I['count']
-    avg_list_I['vpu_cycle']   /= avg_list_I['count']
-    avg_list_I['t_600']       /= avg_list_I['count']
-    avg_list_I['t_700']       /= avg_list_I['count']
-    avg_list_I['t_800']       /= avg_list_I['count']
-    avg_list_I['hw_600']      /= avg_list_I['count'] 
-    avg_list_I['hw_700']      /= avg_list_I['count']
-    avg_list_I['hw_800']      /= avg_list_I['count']
+    for k,v in avg_list_I.iteritems():
+        if k!='count':
+            avg_list_I[k] /= avg_list_I['count']
 
 if avg_list_P['count'] > 0:
-    avg_list_P['frm_size']    /= avg_list_P['count']
-    avg_list_P['br_30']       /= avg_list_P['count']
-    avg_list_P['br_60']       /= avg_list_P['count']
-    avg_list_P['rd_bd']       /= avg_list_P['count']
-    avg_list_P['wr_bd']       /= avg_list_P['count']
-    avg_list_P['all_bd']      /= avg_list_P['count']
-    avg_list_P['hw_cycle']    /= avg_list_P['count']
-    avg_list_P['sw_cycle']    /= avg_list_P['count']
-    avg_list_P['vpu_cycle']   /= avg_list_P['count']
-    avg_list_P['t_600']       /= avg_list_P['count']
-    avg_list_P['t_700']       /= avg_list_P['count']
-    avg_list_P['t_800']       /= avg_list_P['count']
-    avg_list_P['hw_600']      /= avg_list_P['count'] 
-    avg_list_P['hw_700']      /= avg_list_P['count']
-    avg_list_P['hw_800']      /= avg_list_P['count']
+    for k,v in avg_list_P.iteritems():
+        if k!='count':
+            avg_list_P[k] /= avg_list_P['count']
 
 if avg_list_B['count'] > 0:
-    avg_list_B['frm_size']    /= avg_list_B['count']
-    avg_list_B['br_30']       /= avg_list_B['count']
-    avg_list_B['br_60']       /= avg_list_B['count']
-    avg_list_B['rd_bd']       /= avg_list_B['count']
-    avg_list_B['wr_bd']       /= avg_list_B['count']
-    avg_list_B['all_bd']      /= avg_list_B['count']
-    avg_list_B['hw_cycle']    /= avg_list_B['count']
-    avg_list_B['sw_cycle']    /= avg_list_B['count']
-    avg_list_B['vpu_cycle']   /= avg_list_B['count']
-    avg_list_B['t_600']       /= avg_list_B['count']
-    avg_list_B['t_700']       /= avg_list_B['count']
-    avg_list_B['t_800']       /= avg_list_B['count']
-    avg_list_B['hw_600']      /= avg_list_B['count'] 
-    avg_list_B['hw_700']      /= avg_list_B['count']
-    avg_list_B['hw_800']      /= avg_list_B['count'] 
+    for k,v in avg_list_B.iteritems():
+        if k!='count':
+            avg_list_B[k] /= avg_list_B['count']
 
 if avg_list_avgx['count'] > 0:
-    avg_list_avgx['frm_size']    /= avg_list_avgx['count']
-    avg_list_avgx['br_30']       /= avg_list_avgx['count']
-    avg_list_avgx['br_60']       /= avg_list_avgx['count']
-    avg_list_avgx['rd_bd']       /= avg_list_avgx['count']
-    avg_list_avgx['wr_bd']       /= avg_list_avgx['count']
-    avg_list_avgx['all_bd']      /= avg_list_avgx['count']
-    avg_list_avgx['hw_cycle']    /= avg_list_avgx['count']
-    avg_list_avgx['sw_cycle']    /= avg_list_avgx['count']
-    avg_list_avgx['vpu_cycle']   /= avg_list_avgx['count']
-    avg_list_avgx['t_600']       /= avg_list_avgx['count']
-    avg_list_avgx['t_700']       /= avg_list_avgx['count']
-    avg_list_avgx['t_800']       /= avg_list_avgx['count']
-    avg_list_avgx['hw_600']      /= avg_list_avgx['count'] 
-    avg_list_avgx['hw_700']      /= avg_list_avgx['count']
-    avg_list_avgx['hw_800']      /= avg_list_avgx['count'] 
+    for k,v in avg_list_avgx.iteritems():
+        if k!='count':
+            avg_list_avgx[k] /= avg_list_avgx['count']
     
 #for i in performance_list:
 #    print i
@@ -533,9 +224,6 @@ rd_bd_list = list() # read bandwidth
 frm_size_list = list()  # frame size       
 '''  
     
-print len(t_600_list)
-print len(frm_size_list)
-
 import numpy as np
 from scipy.optimize import leastsq
 import pylab as pl
@@ -553,19 +241,18 @@ def residuals(p, y, x):
     '''
     return y - func(x, p)
 
+'''
 p0 = [1, 1]
-
-print t_600_list
-print '=================\n'
-print frm_size_list
 
 plsq = leastsq(residuals, p0, args=(frm_size_list, t_600_list))
 
 print plsq[0]
 
+
 pl.plot(t_600_list, func(t_600_list, plsq[0]), label=u'sim data')
 pl.legend()
 pl.show()
+'''
       
 '''
 Write data into csv file
