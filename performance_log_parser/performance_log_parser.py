@@ -28,8 +28,6 @@ for test_line in f:
         #if p[0]=='module<end_of_pic>':
         if p[0]=='rbuf_hold':
             performance_list.append(dict(zip(*[iter(new_list)]*2)))
-            
-
 
 '''
 Convert Performance Data from hex to deci, and calculate per MB number
@@ -230,7 +228,6 @@ frm_size_list = list()  # frame size
 '''  
     
 import numpy as np
-from scipy.optimize import leastsq
 from scipy.optimize import curve_fit
 import pylab as pl
 
