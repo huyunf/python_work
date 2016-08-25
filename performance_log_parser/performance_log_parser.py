@@ -478,28 +478,62 @@ worksheet.insert_image('F7', file_name+".png")
 '''
 Write Simulation
 '''
-Freq            = 600
-Buf_Num         = 10
+Freq            = 600000000.0
+Buf_Num         = 16
 Frm_R_Target    = 60
-Dis_Interval    = 1000 / 60
+Dis_Interval    = 1.0 / Frm_R_Target
 worksheet = workbook.add_worksheet('Sim-F(%dMHz)-B(%d)-T(%d)' % (Freq, Buf_Num, Frm_R_Target))
 
-Sim_List = ['', 'Time', ' ', 'V4G_Out', 'Dis_Free', ' ', 'Buf_Num', 'V4G_Buf', 'Sys_Buf', 'Valid_DBuf']
+Sim_header = ['', 'Time', ' ', 'V4G_Out', 'Dis_Free', ' ', 'Buf_Num', 'V4G_Buf', 'Sys_Buf', 'Valid_DBuf']
 
-Simulation = {'Time':0, 'V4G_Out':0, 'Dis_Free':0, 'Buf_Num':Buf_Num, 'V4G_Buf':0, 'Sys_Buf':0, 'Valid_DBuf':0}
+Simulation = {'Time':0.0, 'V4G_Out':0, 'Display':0, 'Buf_Num':Buf_Num, 'V4G_Buf':0, 'Sys_Buf':0, 'Valid_DBuf':0}
 
-#for per_entry in performance_list:
-#    print per_entry
-    
-'''
-Wait for Start (Buffer Full)
-'''    
-#print Simulation
 
-for header in Sim_List:
-    col=Sim_List.index(header)  # we are keeping order.
+for header in Sim_header:
+    col=Sim_header.index(header)  # we are keeping order.
     worksheet.write(0, col, header) # we have written first row which is the header of worksheet also.
     
+'''
+    Simulation Start --->
+'''    
+print "freqency: %f, total buffer number:%d, target frame rate: %d, display interval: %f" % (Freq, Buf_Num, Frm_R_Target, Dis_Interval)
+
+Sim_List = list()
+
+prev_sim = Simulation
+next_disp_time = Dis_Interval
+step = 0    # 0: wait for buffer full 1: real start
+for per_entry in original_list:
+    cur_sim = Simulation
+    cur_time_consume = float((per_entry['hw_cycle'] + per_entry['sw_cycle'])/Freq)
+    cur_sim['Time'] = prev_sim['Time'] + cur_time_consume;
+    '''
+    waiting for start
+    '''
+    if step==0:
+        cur_sim['V4G_Out'] = per_entry['dbuf_free']
+        cur_sim['V4G_Buf'] = per_entry['rbuf_hold']
+        cur_sim['Valid_DBuf'] = prev_sim['Valid_DBuf'] + per_entry['dbuf_free']
+        cur_sim['Sys_Buf'] = Buf_Num - cur_sim['V4G_Buf'] - cur_sim['Valid_DBuf']
+        
+        if cur_sim['Sys_Buf'] == 1: 
+            step = 1
+            next_disp_time += cur_sim['Time']
+            #print next_disp_time
+    else:
+        pass
+    
+    #print cur_sim
+    
+    Sim_List.append(cur_sim)
+    prev_sim = cur_sim
+
+
+'''
+    Simulation End --->
+''' 
+
+
 '''
 Clean
 '''
