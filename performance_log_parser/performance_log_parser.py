@@ -19,8 +19,8 @@ f = open(sys.argv[1], 'r')
 #f = open("log-street1_1_4096x2176_fr60_bd10-mtr_on-183028.txt", 'r')
 #f = open("log-street1_1_4096x2176_fr60_bd8-mtr_on-182757.txt", 'r')
 #f = open("log-uhd_vod_count_down_girl_girl_girl_2nd_02-mtr_on-173354.txt", 'r')
-#f = open("log-transformers_4_2014_4k_official_trailer-mtr_on-175016.txt", 'r')
-f = open("log-grass_1_4096X2176_fr60_bd8_sub8X8_l51-mtr_off-182513.txt", 'r')
+f = open("log-transformers_4_2014_4k_official_trailer-mtr_on-175016.txt", 'r')
+#f = open("log-grass_1_4096X2176_fr60_bd8_sub8X8_l51-mtr_off-182513.txt", 'r')
 
 
 original_list = list()
@@ -122,7 +122,6 @@ for per_entry in performance_list:
     deal with all the data get what we need here
         1. add new 
     '''
-    print per_entry
     per_entry['vpu_cycle']  = per_entry['hw_cycle'] + per_entry['sw_cycle']
     per_entry['frm_size']   = float(format((per_entry['bits'] * mb_num) / (1024*1024), '.04f'))     # Mbits
     per_entry['br_30']      = float(format(per_entry['frm_size'] * 30, '.04f'))                     # Mbps
