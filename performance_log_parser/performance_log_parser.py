@@ -5,17 +5,19 @@ import xlwt
 import os
 import sys
 
+'''
 if len(sys.argv) != 2:
     print "performance_log_parser.py log_file"
     exit() 
     
 print sys.argv[0]
 f = open(sys.argv[1], 'r')
+'''
 
 #f = open("log-netflix_hevcm10pl51-6000fps-16000Kbps-3840x2160-1014520_5033638636-mtr_on-114929.txt", 'r')
 #f = open("log-Nepal_Adventures_of_Teamsupertramp-mtr_on-142209.txt", 'r')
 #f = open("log-street1_1_4096x2176_fr60_bd10-mtr_on-183028.txt", 'r')
-#f = open("log-street1_1_4096x2176_fr60_bd8-mtr_on-182757.txt", 'r')
+f = open("log-street1_1_4096x2176_fr60_bd8-mtr_on-182757.txt", 'r')
 #f = open("log-uhd_vod_count_down_girl_girl_girl_2nd_02-mtr_on-173354.txt", 'r')
 #f = open("log-transformers_4_2014_4k_official_trailer-mtr_on-175016.txt", 'r')
 #f = open("log-grass_1_4096X2176_fr60_bd8_sub8X8_l51-mtr_off-182513.txt", 'r')
