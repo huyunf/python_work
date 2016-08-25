@@ -3,14 +3,27 @@ import ast
 import csv
 import xlwt
 import os
+import sys
+
+'''
+if len(sys.argv) != 2:
+    print "performance_log_parser.py log_file"
+    exit() 
+    
+print sys.argv[0]
+f = open(sys.argv[1], 'r')
+'''
 
 #f = open("log-netflix_hevcm10pl51-6000fps-16000Kbps-3840x2160-1014520_5033638636-mtr_on-114929.txt", 'r')
 #f = open("log-Nepal_Adventures_of_Teamsupertramp-mtr_on-142209.txt", 'r')
 #f = open("log-street1_1_4096x2176_fr60_bd10-mtr_on-183028.txt", 'r')
 #f = open("log-street1_1_4096x2176_fr60_bd8-mtr_on-182757.txt", 'r')
 #f = open("log-uhd_vod_count_down_girl_girl_girl_2nd_02-mtr_on-173354.txt", 'r')
-f = open("log-transformers_4_2014_4k_official_trailer-mtr_on-175016.txt", 'r')
+#f = open("log-transformers_4_2014_4k_official_trailer-mtr_on-175016.txt", 'r')
+f = open("log-grass_1_4096X2176_fr60_bd8_sub8X8_l51-mtr_off-182513.txt", 'r')
 
+
+original_list = list()
 performance_list = list()
 
 '''
@@ -28,6 +41,7 @@ for test_line in f:
         #if p[0]=='module<end_of_pic>':
         if p[0]=='rbuf_hold':
             performance_list.append(dict(zip(*[iter(new_list)]*2)))
+            original_list.append(dict(zip(*[iter(new_list)]*2)))
 
 '''
 Convert Performance Data from hex to deci, and calculate per MB number
@@ -79,6 +93,13 @@ frm_size_list = list()  # frame size
 '''
 Process Data
 '''
+# Original
+for per_entry in original_list:
+    for k,v in per_entry.iteritems():
+        if(k!='type'):
+            per_entry[k] = int(ast.literal_eval(v))
+            
+# Real Performance Data
 for per_entry in performance_list:
     mb_num = float(ast.literal_eval(per_entry['mbs']))
     for k,v in per_entry.iteritems():
@@ -101,6 +122,7 @@ for per_entry in performance_list:
     deal with all the data get what we need here
         1. add new 
     '''
+    print per_entry
     per_entry['vpu_cycle']  = per_entry['hw_cycle'] + per_entry['sw_cycle']
     per_entry['frm_size']   = float(format((per_entry['bits'] * mb_num) / (1024*1024), '.04f'))     # Mbits
     per_entry['br_30']      = float(format(per_entry['frm_size'] * 30, '.04f'))                     # Mbps
@@ -287,6 +309,28 @@ import xlsxwriter
 workbook = xlsxwriter.Workbook('performane_'+file_name+'.xlsx')
 
 '''
+Write Original Data
+'''
+worksheet = workbook.add_worksheet('original')
+
+orig_list = ['pic_num', 'show_flag', 'type', 'width', 'height', 'mbs', 'ints', ' ', 'bits', 'rd_bd', 'wr_bd', 'hw_cycle', 'module<so_pic_cfg>', 'module<end_of_pic>', 'sw_cycle', 'int_lat', 'total', ' ', 'rbuf_hold', 'rbuf_free', 'dbuf_hold', 'dbuf_free', ' ', 'slcs', 'spu', 'qtu', 'mvu', 'vcu', 'ppu', 'fcu', 'pfu', 'scu', 'spu1', 'spu2', 'spu3', 'qtu1', 'vcu1', 'vcu2', 'ppu1', 'pfu1', 'fcu1']
+
+for header in orig_list:
+    col=orig_list.index(header)  # we are keeping order.
+    worksheet.write(0, col, header) # we have written first row which is the header of worksheet also.
+
+row=4
+for per_entry in original_list:
+    for _key,_value in per_entry.items():
+        col = orig_list.index(_key)
+        if _key=='type':
+            worksheet.write_string(row, col, _value)
+        else:
+            worksheet.write_number(row, col, float(_value))
+    row+=1 #enter the next row
+
+
+'''
 Write Overview
 '''
 worksheet = workbook.add_worksheet('overview')
@@ -432,14 +476,39 @@ for i in pcov:
     
 worksheet.insert_image('F7', file_name+".png")
 
-workbook.close()
-    
 
+'''
+Write Simulation
+'''
+Freq            = 600
+Buf_Num         = 10
+Frm_R_Target    = 60
+Dis_Interval    = 1000 / 60
+worksheet = workbook.add_worksheet('Sim-F(%dMHz)-B(%d)-T(%d)' % (Freq, Buf_Num, Frm_R_Target))
+
+Sim_List = ['', 'Time', ' ', 'V4G_Out', 'Dis_Free', ' ', 'Buf_Num', 'V4G_Buf', 'Sys_Buf', 'Valid_DBuf']
+
+Simulation = {'Time':0, 'V4G_Out':0, 'Dis_Free':0, 'Buf_Num':Buf_Num, 'V4G_Buf':0, 'Sys_Buf':0, 'Valid_DBuf':0}
+
+#for per_entry in performance_list:
+#    print per_entry
+    
+'''
+Wait for Start (Buffer Full)
+'''    
+#print Simulation
+
+for header in Sim_List:
+    col=Sim_List.index(header)  # we are keeping order.
+    worksheet.write(0, col, header) # we have written first row which is the header of worksheet also.
+    
 '''
 Clean
 '''
+workbook.close()
 os.remove(file_name+".png")
 pl.close()
+f.close()
 
 
 
