@@ -5,20 +5,20 @@ import xlwt
 import os
 import sys
 
-'''
-if len(sys.argv) != 2:
-    print "performance_log_parser.py log_file"
+
+if len(sys.argv) != 3:
+    print "performance_log_parser.py log_file mode(0:host, 1:m3)"
     exit() 
     
 print sys.argv[0]
 f = open(sys.argv[1], 'r')
-'''
+mode = sys.argv[2]
 
 #f = open("log-netflix_hevcm10pl51-6000fps-16000Kbps-3840x2160-1014520_5033638636-mtr_on-114929.txt", 'r')
 #f = open("log-Nepal_Adventures_of_Teamsupertramp-mtr_on-142209.txt", 'r')
 #f = open("log-street1_1_4096x2176_fr60_bd10-mtr_on-183028.txt", 'r')
 #f = open("log-street1_1_4096x2176_fr60_bd8-mtr_on-182757.txt", 'r')
-f = open("log-uhd_vod_count_down_girl_girl_girl_2nd_02-mtr_on-173354.txt", 'r')
+#f = open("log-uhd_vod_count_down_girl_girl_girl_2nd_02-mtr_on-173354.txt", 'r')
 #f = open("log-transformers_4_2014_4k_official_trailer-mtr_on-175016.txt", 'r')
 #f = open("log-grass_1_4096X2176_fr60_bd8_sub8X8_l51-mtr_off-182513.txt", 'r')
 
@@ -56,26 +56,51 @@ bandwidth:
 performance (600M, 700M, 800M):
     hw_cycle, sw_cycle, vpu_cycle, fr_600, fr_700, fr_800
 '''
-min_list_all        = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'sw_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
-max_list_all        = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
-avg_list_all        = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
 
-cur_list_avgx       = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
-min_list_avgx       = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'sw_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
-max_list_avgx       = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
-avg_list_avgx       = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+if mode == '0':
+    min_list_all        = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'sw_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
+    max_list_all        = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    avg_list_all        = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    
+    cur_list_avgx       = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    min_list_avgx       = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'sw_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
+    max_list_avgx       = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    avg_list_avgx       = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    
+    min_list_I          = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'sw_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
+    max_list_I          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    avg_list_I          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    
+    min_list_P          = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'sw_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
+    max_list_P          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    avg_list_P          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    
+    min_list_B          = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'sw_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
+    max_list_B          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    avg_list_B          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
 
-min_list_I          = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'sw_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
-max_list_I          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
-avg_list_I          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+elif mode == '1':
+    min_list_all        = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'host_cycle':18300, 'm3_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
+    max_list_all        = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'host_cycle':0, 'm3_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    avg_list_all        = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'host_cycle':0, 'm3_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    
+    cur_list_avgx       = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'host_cycle':0, 'm3_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    min_list_avgx       = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'host_cycle':18300, 'm3_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
+    max_list_avgx       = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'host_cycle':0, 'm3_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    avg_list_avgx       = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'host_cycle':0, 'm3_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    
+    min_list_I          = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'host_cycle':18300, 'm3_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
+    max_list_I          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'host_cycle':0, 'm3_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    avg_list_I          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'host_cycle':0, 'm3_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    
+    min_list_P          = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'host_cycle':18300, 'm3_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
+    max_list_P          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'host_cycle':0, 'm3_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    avg_list_P          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'host_cycle':0, 'm3_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    
+    min_list_B          = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'host_cycle':18300, 'm3_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
+    max_list_B          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'host_cycle':0, 'm3_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
+    avg_list_B          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'host_cycle':0, 'm3_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
 
-min_list_P          = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'sw_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
-max_list_P          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
-avg_list_P          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
-
-min_list_B          = {'count':0, 'frm_size':12, 'br_30':160, 'br_60':320, 'rd_bd':8192, 'wr_bd':8192, 'all_bd':16384, 'hw_cycle':18300, 'sw_cycle':18300, 'vpu_cycle':36600, 'hw_600':240, 'hw_700':240, 'hw_800':240, 't_600':240, 't_700':240, 't_800':240 }
-max_list_B          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
-avg_list_B          = {'count':0, 'frm_size':0, 'br_30':0, 'br_60':0, 'rd_bd':0, 'wr_bd':0, 'all_bd':0, 'hw_cycle':0, 'sw_cycle':0, 'vpu_cycle':0, 'hw_600':0, 'hw_700':0, 'hw_800':0, 't_600':0, 't_700':0, 't_800':0 }
 
 '''
 data for plot
@@ -121,7 +146,11 @@ for per_entry in performance_list:
     deal with all the data get what we need here
         1. add new 
     '''
-    per_entry['vpu_cycle']  = per_entry['hw_cycle'] + per_entry['sw_cycle']
+    if mode == '0':
+        per_entry['vpu_cycle']  = per_entry['hw_cycle'] + per_entry['sw_cycle']
+    elif mode == '1':
+        per_entry['vpu_cycle']  = per_entry['hw_cycle'] + per_entry['host_cycle']
+        
     per_entry['frm_size']   = float(format((per_entry['bits'] * mb_num) / (1024*1024), '.04f'))     # Mbits
     per_entry['br_30']      = float(format(per_entry['frm_size'] * 30, '.04f'))                     # Mbps
     per_entry['br_60']      = float(format(per_entry['frm_size'] * 60, '.04f'))                     # Mbps
@@ -311,7 +340,10 @@ Write Original Data
 '''
 worksheet = workbook.add_worksheet('original')
 
-orig_list = ['pic_num', 'show_flag', 'type', 'width', 'height', 'mbs', 'ints', ' ', 'bits', 'rd_bd', 'wr_bd', 'hw_cycle', 'module<so_pic_cfg>', 'module<end_of_pic>', 'sw_cycle', 'int_lat', 'total', ' ', 'rbuf_hold', 'rbuf_free', 'dbuf_hold', 'dbuf_free', ' ', 'slcs', 'spu', 'qtu', 'mvu', 'vcu', 'ppu', 'fcu', 'pfu', 'scu', 'spu1', 'spu2', 'spu3', 'qtu1', 'vcu1', 'vcu2', 'ppu1', 'pfu1', 'fcu1']
+if mode == '0':
+    orig_list = ['pic_num', 'show_flag', 'type', 'width', 'height', 'mbs', 'ints', ' ', 'bits', 'rd_bd', 'wr_bd', 'hw_cycle', 'module<so_pic_cfg>', 'module<end_of_pic>', 'sw_cycle', 'int_lat', 'total', ' ', 'rbuf_hold', 'rbuf_free', 'dbuf_hold', 'dbuf_free', ' ', 'slcs', 'spu', 'qtu', 'mvu', 'vcu', 'ppu', 'fcu', 'pfu', 'scu', 'spu1', 'spu2', 'spu3', 'qtu1', 'vcu1', 'vcu2', 'ppu1', 'pfu1', 'fcu1']
+elif mode == '1':
+    orig_list = ['pic_num', 'show_flag', 'type', 'width', 'height', 'mbs', 'ints', ' ', 'bits', 'rd_bd', 'wr_bd', 'hw_cycle', 'module<so_pic_cfg>', 'module<end_of_pic>', 'host_cycle', 'm3_cycle', 'int_lat', 'total', ' ', 'rbuf_hold', 'rbuf_free', 'dbuf_hold', 'dbuf_free', ' ', 'slcs', 'spu', 'qtu', 'mvu', 'vcu', 'ppu', 'fcu', 'pfu', 'scu', 'spu1', 'spu2', 'spu3', 'qtu1', 'vcu1', 'vcu2', 'ppu1', 'pfu1', 'fcu1']
 
 for header in orig_list:
     col=orig_list.index(header)  # we are keeping order.
@@ -333,8 +365,11 @@ Write Overview
 '''
 worksheet = workbook.add_worksheet('overview')
 
-overview_list=['pic_num', 'show_flag', 'type', 'width', 'height', 'mbs', 'ints', ' ', 'bits', 'frm_size', 'br_30', 'br_60', ' ', 'rd_bd', 'wr_bd', 'all_bd', ' ', 'hw_cycle', 'module<so_pic_cfg>', 'module<end_of_pic>', 'sw_cycle', 'vpu_cycle', 'int_lat', 'total', ' ', 'hw_600', 'hw_700', 'hw_800', 't_600', 't_700', 't_800', ' ', 'rbuf_hold', 'rbuf_free', 'dbuf_hold', 'dbuf_free',' ', 'spu', 'qtu', 'mvu', 'vcu', 'ppu', 'fcu', 'pfu', 'slcs', 'vcu2', 'vcu1', 'scu', 'spu2', 'spu3', 'pfu1', 'spu1', 'ppu1', 'qtu1', 'fcu1']
-
+if mode == '0':
+    overview_list=['pic_num', 'show_flag', 'type', 'width', 'height', 'mbs', 'ints', ' ', 'bits', 'frm_size', 'br_30', 'br_60', ' ', 'rd_bd', 'wr_bd', 'all_bd', ' ', 'hw_cycle', 'module<so_pic_cfg>', 'module<end_of_pic>', 'sw_cycle', 'vpu_cycle', 'int_lat', 'total', ' ', 'hw_600', 'hw_700', 'hw_800', 't_600', 't_700', 't_800', ' ', 'rbuf_hold', 'rbuf_free', 'dbuf_hold', 'dbuf_free',' ', 'spu', 'qtu', 'mvu', 'vcu', 'ppu', 'fcu', 'pfu', 'slcs', 'vcu2', 'vcu1', 'scu', 'spu2', 'spu3', 'pfu1', 'spu1', 'ppu1', 'qtu1', 'fcu1']
+elif mode == '1':
+    overview_list=['pic_num', 'show_flag', 'type', 'width', 'height', 'mbs', 'ints', ' ', 'bits', 'frm_size', 'br_30', 'br_60', ' ', 'rd_bd', 'wr_bd', 'all_bd', ' ', 'hw_cycle', 'module<so_pic_cfg>', 'module<end_of_pic>', 'host_cycle', 'm3_cycle', 'vpu_cycle', 'int_lat', 'total', ' ', 'hw_600', 'hw_700', 'hw_800', 't_600', 't_700', 't_800', ' ', 'rbuf_hold', 'rbuf_free', 'dbuf_hold', 'dbuf_free',' ', 'spu', 'qtu', 'mvu', 'vcu', 'ppu', 'fcu', 'pfu', 'slcs', 'vcu2', 'vcu1', 'scu', 'spu2', 'spu3', 'pfu1', 'spu1', 'ppu1', 'qtu1', 'fcu1']
+    
 for header in overview_list:
     col=overview_list.index(header)  # we are keeping order.
     worksheet.write(0, col, header) # we have written first row which is the header of worksheet also.
@@ -354,8 +389,11 @@ Write Summary
 '''
 worksheet = workbook.add_worksheet('summary')
 
-summay_list = [' ', ' ', 'count', ' ', 'frm_size', 'br_30', 'br_60', ' ', 'rd_bd', 'wr_bd', 'all_bd', ' ', 'hw_cycle', 'sw_cycle', 'vpu_cycle', ' ', 'hw_600', 'hw_700', 'hw_800', ' ', 't_600', 't_700', 't_800']
-
+if mode == '0':
+    summay_list = [' ', ' ', 'count', ' ', 'frm_size', 'br_30', 'br_60', ' ', 'rd_bd', 'wr_bd', 'all_bd', ' ', 'hw_cycle', 'sw_cycle', 'vpu_cycle', ' ', 'hw_600', 'hw_700', 'hw_800', ' ', 't_600', 't_700', 't_800']
+elif mode == '1':
+    summay_list = [' ', ' ', 'count', ' ', 'frm_size', 'br_30', 'br_60', ' ', 'rd_bd', 'wr_bd', 'all_bd', ' ', 'hw_cycle', 'host_cycle', 'm3_cycle', 'vpu_cycle', ' ', 'hw_600', 'hw_700', 'hw_800', ' ', 't_600', 't_700', 't_800']
+    
 for header in summay_list:
     col=summay_list.index(header)  # we are keeping order.
     worksheet.write(0, col, header) # we have written first row which is the header of worksheet also.
@@ -505,7 +543,11 @@ next_disp_time = Dis_Interval
 step = 0    # 0: wait for buffer full 1: real start
 for per_entry in original_list:
     cur_sim = Simulation
-    cur_time_consume = float((per_entry['hw_cycle'] + per_entry['sw_cycle'])/Freq)
+    if mode == '0':
+        cur_time_consume = float((per_entry['hw_cycle'] + per_entry['sw_cycle'])/Freq)
+    elif mode == '1':
+        cur_time_consume = float(per_entry['host_cycle']/Freq)
+        
     cur_sim['Time'] = prev_sim['Time'] + cur_time_consume;
     '''
     waiting for start
