@@ -37,8 +37,8 @@ for test_line in f:
         if p[0]=='pic_num':
             new_list = list()
         new_list = new_list + p
-        #if p[0]=='module<end_of_pic>':
-        if p[0]=='rbuf_hold':
+        if p[0]=='module<end_of_pic>':
+        #if p[0]=='rbuf_hold':
             performance_list.append(dict(zip(*[iter(new_list)]*2)))
             original_list.append(dict(zip(*[iter(new_list)]*2)))
 
@@ -516,6 +516,7 @@ worksheet.insert_image('F7', file_name+".png")
 '''
 Write Simulation
 '''
+'''
 Freq            = 600000000.0
 Buf_Num         = 16
 Frm_R_Target    = 60
@@ -530,10 +531,11 @@ Simulation = {'Time':0.0, 'V4G_Out':0, 'Display':0, 'Buf_Num':Buf_Num, 'V4G_Buf'
 for header in Sim_header:
     col=Sim_header.index(header)  # we are keeping order.
     worksheet.write(0, col, header) # we have written first row which is the header of worksheet also.
-    
+'''    
 '''
     Simulation Start --->
 '''    
+'''
 print "freqency: %f, total buffer number:%d, target frame rate: %d, display interval: %f" % (Freq, Buf_Num, Frm_R_Target, Dis_Interval)
 
 Sim_List = list()
@@ -549,9 +551,7 @@ for per_entry in original_list:
         cur_time_consume = float(per_entry['host_cycle']/Freq)
         
     cur_sim['Time'] = prev_sim['Time'] + cur_time_consume;
-    '''
-    waiting for start
-    '''
+
     if step==0:
         cur_sim['V4G_Out'] = per_entry['dbuf_free']
         cur_sim['V4G_Buf'] = per_entry['rbuf_hold']
@@ -570,7 +570,7 @@ for per_entry in original_list:
     Sim_List.append(cur_sim)
     prev_sim = cur_sim
 
-
+'''
 '''
     Simulation End --->
 ''' 
