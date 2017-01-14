@@ -1,7 +1,5 @@
 import re
 import ast
-import csv
-import xlwt
 import os
 import sys
 import xlsxwriter
